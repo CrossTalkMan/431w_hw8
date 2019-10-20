@@ -1,23 +1,24 @@
 import csv
 import re
 
-with open("votes.log", 'r') as f:
+with open("vote_result.txt", 'r') as f:
     rl = f.readlines()
 
-csv_file = csv.reader(open("voterRegistration (2).csv", 'r'))
+csv_file = csv.reader(open("voter_registration.csv", 'r'))
 
 voters = {}
 
 for elem in csv_file:
     voters[elem[2]+' '+elem[3]+' '+elem[4]] = elem[0]
 
-candidate_csv = csv.reader(open("candidates.csv", 'r'))
+candidate_csv = csv.reader(open("candidates (1).csv", 'r'))
 
 candidates = {}
 
 for elem in candidate_csv:
     candidates[elem[2] + ' ' + elem[3] + ' ' + elem[4]] = elem[1]
 
+# print(voters)
 print(candidates)
 
 
@@ -36,8 +37,10 @@ while i < len(rl):
                 name = re.split(r'\sVOTES\s', rl[j])[0]
                 s = name
             else:
-                position = re.split(r':\s+', rl[j])[0]
-                candidate = re.split(r':\s+', rl[j])[1]
+                position = re.split(r':\s?', rl[j])[0]
+                candidate = re.split(r':\s?', rl[j])[1][:-1]
+                print(position)
+                print(candidate)
             # s = s + ',' + position + ',' + voter
                 t = s.split(' ')
                 c = candidate.split(' ')
